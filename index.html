@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!---Meta--->
+  <!-- Meta -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!---Page Icon---> 
+  <!-- Page Icon -->
   <link rel="shortcut icon" href="favicon.png">
-  <!--CSS Documents-->
+  <!-- CSS Documents -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!--Fonts-->
+  <!-- Fonts -->
   <style>
     @font-face {
       font-family: 'VCR';
@@ -44,9 +44,23 @@
       reloj.textContent = `${horas}:${minutos}`;
     }
 
-    // Actualizar la hora cada minuto
-    setInterval(actualizarHora, 60000);
-    actualizarHora(); // Llamada inicial para que no haya retraso
+    function iniciarReloj() {
+      actualizarHora();
+
+      // Calcular el tiempo restante para el próximo minuto
+      const ahora = new Date();
+      const segundosRestantes = 60 - ahora.getSeconds();
+
+      // Programar la actualización exacta al inicio del próximo minuto
+      setTimeout(() => {
+        actualizarHora();
+
+        // Luego actualizar cada minuto
+        setInterval(actualizarHora, 60000);
+      }, segundosRestantes * 1000);
+    }
+
+    iniciarReloj();
   </script>
 </body>
 </html>
